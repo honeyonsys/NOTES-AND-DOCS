@@ -106,5 +106,3 @@ class LISBinarySearch {
 ✅ **Used in stock market analysis (predicting price trends).**  
 ✅ **Used in longest chain formation in networking problems.**  
 ✅ **Used in gaming (ranking and level progression analysis).**  
-
-Your **Longest Increasing Subsequence (LIS)** notes are ready! 🚀 Let me know if you need modifications.

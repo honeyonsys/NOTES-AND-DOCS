@@ -100,16 +100,17 @@ Then clone your repo using ssh url but here is the trick you need to add the Hos
 And put below code in it (change the /.ssh/file path accordingly)
 
 `
+
 name: Deploy JPSC Frontend (Production)
 
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
+ on:
+   push:
+     branches:
+       - main
+ jobs:
+   deploy:
+     runs-on: ubuntu-latest
+     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 

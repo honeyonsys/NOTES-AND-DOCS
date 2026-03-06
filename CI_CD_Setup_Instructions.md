@@ -102,7 +102,7 @@ And put below code in it (change the /.ssh/file path accordingly)
 
 
 
-
+```
 
     name: Deploy JPSC Frontend (Production)
 
@@ -147,7 +147,7 @@ And put below code in it (change the /.ssh/file path accordingly)
                 pm2 save
                 echo "✅ Frontend deployment completed successfully"
               EOF
-
+```
 
 
 

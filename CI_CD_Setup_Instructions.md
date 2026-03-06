@@ -99,50 +99,55 @@ Then clone your repo using ssh url but here is the trick you need to add the Hos
 
 And put below code in it (change the /.ssh/file path accordingly)
 
-`
 
-name: Deploy JPSC Frontend (Production)
 
- on:
-   push:
-     branches:
-       - main
- jobs:
-   deploy:
-     runs-on: ubuntu-latest
-     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy React App via PM2
-        run: |
-          ssh -o StrictHostKeyChecking=no \
-          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            set -e
-            echo "➡️ Moving to frontend directory"
-            cd ${{ secrets.APP_DIR }}
-            echo "🔄 Syncing code with origin/main"
-            git fetch origin
-            git reset --hard origin/main
-            git clean -fd
-            echo "📦 Installing dependencies (CI-safe)"
-            npm ci
-            echo "🏗️ Building React app"
-            npm run build
-            echo "♻️ Restarting frontend (PM2: JPSC-FE)"
-            pm2 restart JPSC-FE || \
-            pm2 start "npm run preview -- --port 5173 --host" \
-              --name JPSC-FE
-            pm2 save
-            echo "✅ Frontend deployment completed successfully"
-          EOF
+
+    name: Deploy JPSC Frontend (Production)
+
+    on:
+      push:
+        branches:
+          - main
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Setup SSH
+            run: |
+              mkdir -p ~/.ssh
+              echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+              chmod 600 ~/.ssh/id_ed25519
+              ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+          - name: Deploy React App via PM2
+            run: |
+              ssh -o StrictHostKeyChecking=no \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+                set -e
+                echo "➡️ Moving to frontend directory"
+                cd ${{ secrets.APP_DIR }}
+                echo "🔄 Syncing code with origin/main"
+                git fetch origin
+                git reset --hard origin/main
+                git clean -fd
+                echo "📦 Installing dependencies (CI-safe)"
+                npm ci
+                echo "🏗️ Building React app"
+                npm run build
+                echo "♻️ Restarting frontend (PM2: JPSC-FE)"
+                pm2 restart JPSC-FE || \
+                pm2 start "npm run preview -- --port 5173 --host" \
+                  --name JPSC-FE
+                pm2 save
+                echo "✅ Frontend deployment completed successfully"
+              EOF
+
 
 
 

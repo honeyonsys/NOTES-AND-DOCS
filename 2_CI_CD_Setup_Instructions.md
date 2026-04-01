@@ -42,10 +42,14 @@ nano ~/.ssh/config
 Put below code
 `
 Host github-anyname-fe
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/SSH_KEY_FILE_NAME
-    IdentitiesOnly yes
+    
+	HostName github.com
+    
+	User git
+    
+	IdentityFile ~/.ssh/SSH_KEY_FILE_NAME
+    
+	IdentitiesOnly yes
 `
 
 Then clone your repo using ssh url but here is the trick you need to add the Host name you have defined in the config then the url become like this

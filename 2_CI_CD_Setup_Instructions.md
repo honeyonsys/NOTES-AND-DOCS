@@ -41,7 +41,8 @@ nano ~/.ssh/config
 
 Put below code
 `
-Host github-anyname-fe
+
+    Host github-anyname-fe
     
 	HostName github.com
     
